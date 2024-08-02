@@ -47,17 +47,11 @@ export const getOllamaApiEndpoint = () => loadConfig().API_ENDPOINTS.OLLAMA;
 export const updateConfig = (config: RecursivePartial<Config>) => {
   const currentConfig = loadConfig();
 
-  console.log(currentConfig);
-
   for (const key in currentConfig) {
-    console.log('key', key, 'val', config[key]);
-
     if (!config[key]) config[key] = {};
 
     if (typeof currentConfig[key] === 'object' && currentConfig[key] !== null) {
-      console.log('first if', currentConfig[key], typeof currentConfig[key]);
       for (const nestedKey in currentConfig[key]) {
-        console.log('first if nested', nestedKey, config[key][nestedKey]);
         if (
           !config[key][nestedKey] &&
           currentConfig[key][nestedKey] &&
@@ -67,18 +61,15 @@ export const updateConfig = (config: RecursivePartial<Config>) => {
         }
       }
     } else if (currentConfig[key] && config[key] !== '') {
-      console.log('else if', currentConfig[key], typeof currentConfig[key]);
-      if (typeof currentConfig[key] === 'number') {
-        // Ensure that PORT is set correctly as a number
-        config[key] = Number(currentConfig[key]);
-      } else {
-        config[key] = currentConfig[key];
-      }
+      config[key] = currentConfig[key];
     }
   }
 
-  console.log('final config', config);
-  console.log('stringify toml', toml.stringify(config));
+  // Convert specific numeric values back to pure numbers before writing
+  if (config.GENERAL && config.GENERAL.PORT !== undefined) {
+    config.GENERAL.PORT = Number(config.GENERAL.PORT);
+  }
+
   fs.writeFileSync(
     path.join(__dirname, `../${configFileName}`),
     toml.stringify(config),
