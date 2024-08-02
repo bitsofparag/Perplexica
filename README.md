@@ -79,8 +79,9 @@ There are mainly 2 ways of installing Perplexica - With Docker, Without Docker. 
    ```bash
    docker compose up -d
    ```
+6. (Optional) Copy `ui/.env.example` to `ui/.env` and update the `NEXT_PUBLIC_*` endpoints if applicable. Usually, you would need to do this if you run the backend and frontend outside of the docker compose setup.
 
-6. Wait a few minutes for the setup to complete. You can access Perplexica at http://localhost:3000 in your web browser.
+7. Wait a few minutes for the setup to complete. You can access Perplexica at http://localhost:3000 in your web browser.
 
 **Note**: After the containers are built, you can start Perplexica directly from Docker without having to open a terminal.
 
