@@ -61,7 +61,12 @@ export const updateConfig = (config: RecursivePartial<Config>) => {
         }
       }
     } else if (currentConfig[key] && config[key] !== '') {
-      config[key] = currentConfig[key];
+      if (typeof currentConfig[key] === 'number') {
+        // Ensure that PORT is set correctly as a number
+        config[key] = Number(currentConfig[key]);
+      } else {
+        config[key] = currentConfig[key];
+      }
     }
   }
 
