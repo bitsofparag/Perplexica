@@ -65,13 +65,15 @@ export const updateConfig = (config: RecursivePartial<Config>) => {
     }
   }
 
-  // Convert specific numeric values back to pure numbers before writing
-  if (config.GENERAL && config.GENERAL.PORT !== undefined) {
-    config.GENERAL.PORT = Number(config.GENERAL.PORT);
-  }
+  const tomlString = toml.stringify(config);
 
-  fs.writeFileSync(
+  fs.writeFileSync(path.join(__dirname, `../${configFileName}`), tomlString);
+
+  // Rewrite the config.toml file by replacing instances of numeric underscores
+  let fileContent = fs.readFileSync(
     path.join(__dirname, `../${configFileName}`),
-    toml.stringify(config),
+    'utf-8',
   );
+  fileContent = fileContent.replace(/(\d)_/g, '$1');
+  fs.writeFileSync(path.join(__dirname, `../${configFileName}`), fileContent);
 };
