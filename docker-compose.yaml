@@ -21,7 +21,6 @@ services:
       - 3001:3001
     volumes:
       - backend-dbstore:/home/perplexica/data
-      - /mnt/perplexica/config.toml:/home/perplexica/config.toml:ro
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     networks:
