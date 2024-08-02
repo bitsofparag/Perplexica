@@ -3,9 +3,9 @@ FROM node:slim
 ARG SEARXNG_API_URL
 ARG CONFIG_TOML_BASE64
 
-WORKDIR /home/perplexica
+RUN  echo "${CONFIG_TOML_BASE64}" | base64 -d > config.toml
 
-RUN  echo "${CONFIG_TOML_BASE64}" | base64 -d > /home/perplexica/config.toml
+WORKDIR /home/perplexica
 
 COPY src /home/perplexica/src
 COPY tsconfig.json /home/perplexica/
