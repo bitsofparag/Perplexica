@@ -1,6 +1,7 @@
 FROM node:slim
 
 ARG SEARXNG_API_URL
+ARG CONFIG_TOML_BASE64
 
 WORKDIR /home/perplexica
 
