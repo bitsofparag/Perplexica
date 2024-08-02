@@ -15,7 +15,6 @@ services:
       dockerfile: backend.dockerfile
       args:
         - SEARXNG_API_URL=http://searxng:8080
-        - CONFIG_TOML_BASE64=${CONFIG_TOML_BASE64}
     depends_on:
       - searxng
     ports:
