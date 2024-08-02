@@ -5,6 +5,8 @@ ARG CONFIG_TOML_BASE64
 
 WORKDIR /home/perplexica
 
+RUN  echo "${CONFIG_TOML_BASE64}" | base64 -d > /home/perplexica/config.toml
+
 COPY src /home/perplexica/src
 COPY tsconfig.json /home/perplexica/
 COPY config.toml /home/perplexica/
