@@ -47,7 +47,11 @@ export const getOllamaApiEndpoint = () => loadConfig().API_ENDPOINTS.OLLAMA;
 export const updateConfig = (config: RecursivePartial<Config>) => {
   const currentConfig = loadConfig();
 
+  console.log(currentConfig);
+
   for (const key in currentConfig) {
+    console.log('key', key, 'val', config[key]);
+
     if (!config[key]) config[key] = {};
 
     if (typeof currentConfig[key] === 'object' && currentConfig[key] !== null) {
